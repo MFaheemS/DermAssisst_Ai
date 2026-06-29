@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Hero -->
+<div class="px-4 py-5 text-center bg-primary text-white rounded-3 mb-5 shadow">
+  <i class="bi bi-heart-pulse-fill display-4 mb-3 d-block"></i>
+  <h1 class="display-5 fw-bold">DermAssist-AI</h1>
+  <p class="col-lg-7 mx-auto lead">
+    Upload a skin image and receive an AI-powered preliminary assessment with
+    explainable heatmaps in seconds.
+  </p>
+  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('main.dashboard') }}" class="btn btn-light btn-lg px-4">
+        <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+      </a>
+    {% else %}
+      <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg px-4 fw-bold">
+        <i class="bi bi-person-plus me-2"></i>Get Started
+      </a>
+      <a href="{{ url_for('auth.guest') }}" class="btn btn-outline-light btn-lg px-4">
+        Try as Guest
+      </a>
+    {% endif %}
+  </div>
+  <p class="mt-3 mb-0 small opacity-75">
+    <i class="bi bi-shield-check me-1"></i>
+    Screening aid only — always consult a certified dermatologist.
+  </p>
+</div>
+
+<!-- How it works -->
+<h2 class="text-center mb-4 fw-semibold">How It Works</h2>
+<div class="row g-4 mb-5">
+  {% set steps = [
+    ("cloud-upload", "primary", "1. Upload", "Take or select a clear photo of the skin area of concern."),
+    ("cpu", "success", "2. AI Analysis", "Our EfficientNet model classifies the condition and generates a Grad-CAM heatmap."),
+    ("file-earmark-medical", "warning", "3. Review Report", "Get a downloadable report with prediction, confidence score, and clinical notes."),
+    ("person-check", "danger", "4. Consult", "Use the report as a reference when visiting a dermatologist."),
+  ] %}
+  {% for icon, color, heading, text in steps %}
+  <div class="col-sm-6 col-lg-3">
+    <div class="card h-100 border-0 shadow-sm text-center">
+      <div class="card-body py-4">
+        <div class="mb-3">
+          <span class="bg-{{ color }} bg-opacity-10 rounded-circle d-inline-flex p-3">
+            <i class="bi bi-{{ icon }} fs-2 text-{{ color }}"></i>
+          </span>
+        </div>
+        <h5 class="card-title fw-semibold">{{ heading }}</h5>
+        <p class="card-text text-muted small">{{ text }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Supported Conditions -->
+{% if diseases %}
+<h2 class="text-center mb-4 fw-semibold">Supported Conditions</h2>
+<div class="row g-3 mb-5">
+  {% for d in diseases %}
+  <div class="col-md-6 col-lg-3">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <h5 class="card-title">
+          <i class="bi bi-{{ d.icon or 'patch-question' }} me-2 text-primary"></i>{{ d.name }}
+        </h5>
+        <p class="card-text text-muted small">{{ (d.description or '')[:120] }}…</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- Stats strip -->
+<div class="row text-center g-3 mb-5">
+  {% for val, label in [("4+", "Conditions Detected"), ("Grad-CAM", "Explainability"), ("PDF", "Downloadable Reports"), ("Free", "for Screening")] %}
+  <div class="col-6 col-md-3">
+    <div class="card border-primary border-2 shadow-sm py-3">
+      <h3 class="fw-bold text-primary mb-0">{{ val }}</h3>
+      <small class="text-muted">{{ label }}</small>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,25 +1,36 @@
-# Core ML / DL
+# ── Web Framework ─────────────────────────────────────────────────────────
+Flask>=3.0.0
+Flask-SQLAlchemy>=3.1.0
+Flask-Login>=0.6.3
+Flask-WTF>=1.2.1
+Flask-Mail>=0.10.0
+Flask-Migrate>=4.0.5
+WTForms>=3.1.1
+email-validator>=2.1.0
+itsdangerous>=2.1.2
+Werkzeug>=3.0.0
+python-dotenv>=1.0.0
+gunicorn>=21.2.0            # production server
+
+# ── Core ML / DL ──────────────────────────────────────────────────────────
 torch>=2.1.0
 torchvision>=0.16.0
-# Computer Vision
+
+# ── Computer Vision ───────────────────────────────────────────────────────
 opencv-python>=4.8.0
 Pillow>=10.0.0
-albumentations>=1.3.1       # augmentation
+albumentations>=1.3.1
 
-# Explainability (Grad-CAM, LIME, SHAP)
-grad-cam>=1.4.8            # pip package name: grad-cam (imports as pytorch_grad_cam)
+# ── Explainability ────────────────────────────────────────────────────────
+grad-cam>=1.4.8             # imports as pytorch_grad_cam
 lime>=0.2.0.1
 shap>=0.43.0
 
-# Word doc generation (proposal)
+# ── Report Generation ─────────────────────────────────────────────────────
+reportlab>=4.0.0
 python-docx>=1.1.0
 
-# Web Framework
-streamlit>=1.28.0
-flask>=3.0.0                # alternative to Streamlit
-flask-cors>=4.0.0
-
-# Data / Utilities
+# ── Data / Utilities ──────────────────────────────────────────────────────
 numpy>=1.24.0
 pandas>=2.0.0
 scikit-learn>=1.3.0
@@ -27,13 +38,9 @@ matplotlib>=3.7.0
 seaborn>=0.12.0
 tqdm>=4.66.0
 
-# Image handling / serving
-Werkzeug>=3.0.0
-python-multipart>=0.0.6
-
-# Notebook
+# ── Notebooks ─────────────────────────────────────────────────────────────
 ipykernel>=6.25.0
 jupyter>=1.0.0
 
-# Optional: model tracking
+# ── Optional: Experiment Tracking ─────────────────────────────────────────
 mlflow>=2.7.0

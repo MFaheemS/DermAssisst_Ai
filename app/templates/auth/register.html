@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-sm-10 col-md-8 col-lg-6">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-md-5">
+        <div class="text-center mb-4">
+          <i class="bi bi-person-plus-fill display-4 text-primary"></i>
+          <h3 class="fw-bold mt-2">Create Account</h3>
+          <p class="text-muted small">Join DermAssist-AI for free</p>
+        </div>
+        <form method="POST" novalidate>
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            {{ form.username.label(class="form-label fw-semibold") }}
+            {{ form.username(class="form-control" + (" is-invalid" if form.username.errors else ""),
+                             placeholder="johndoe") }}
+            {% for e in form.username.errors %}
+              <div class="invalid-feedback">{{ e }}</div>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.email.label(class="form-label fw-semibold") }}
+            {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""),
+                          placeholder="you@example.com") }}
+            {% for e in form.email.errors %}
+              <div class="invalid-feedback">{{ e }}</div>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.password.label(class="form-label fw-semibold") }}
+            {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else ""),
+                             placeholder="Min. 8 characters") }}
+            {% for e in form.password.errors %}
+              <div class="invalid-feedback">{{ e }}</div>
+            {% endfor %}
+          </div>
+          <div class="mb-4">
+            {{ form.confirm_password.label(class="form-label fw-semibold") }}
+            {{ form.confirm_password(class="form-control" + (" is-invalid" if form.confirm_password.errors else ""),
+                                     placeholder="Repeat password") }}
+            {% for e in form.confirm_password.errors %}
+              <div class="invalid-feedback">{{ e }}</div>
+            {% endfor %}
+          </div>
+          {{ form.submit(class="btn btn-primary w-100 btn-lg") }}
+        </form>
+        <hr>
+        <p class="text-center mb-0 small">
+          Already have an account?
+          <a href="{{ url_for('auth.login') }}" class="fw-semibold">Sign in</a>
+        </p>
+      </div>
+    </div>
+    <p class="text-center text-muted small mt-3">
+      <i class="bi bi-shield-lock me-1"></i>
+      Your data is stored securely and never shared.
+    </p>
+  </div>
+</div>
+{% endblock %}

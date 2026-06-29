@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="fw-bold mb-0"><i class="bi bi-image me-2"></i>All Analyses</h2>
+  <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">Back</a>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr><th>#</th><th>User</th><th>Date</th><th>Prediction</th><th>Confidence</th><th>Severity</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for a in analyses.items %}
+          {% set sev_color = {'Low Risk':'success','Moderate Risk':'warning','High Risk':'danger'} %}
+          <tr>
+            <td class="text-muted small">{{ a.id }}</td>
+            <td class="small">{{ a.user.username if a.user else 'Guest' }}</td>
+            <td class="small">{{ a.created_at.strftime('%d %b %Y') }}</td>
+            <td>{{ a.predicted_class or '—' }}</td>
+            <td>{{ '%d%%'|format((a.confidence*100)|int) if a.confidence else '—' }}</td>
+            <td>
+              {% if a.severity %}
+              <span class="badge bg-{{ sev_color.get(a.severity, 'secondary') }}">{{ a.severity }}</span>
+              {% else %}—{% endif %}
+            </td>
+            <td>
+              <span class="badge bg-{{ 'success' if a.status=='completed' else ('danger' if a.status=='failed' else 'secondary') }}">
+                {{ a.status }}
+              </span>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="7" class="text-center text-muted py-3">No analyses yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

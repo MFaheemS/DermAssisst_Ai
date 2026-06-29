@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="d-flex justify-content-between mb-4">
+      <h3 class="fw-bold mb-0">{{ title }}</h3>
+      <a href="{{ url_for('admin.diseases') }}" class="btn btn-outline-secondary btn-sm">Cancel</a>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form method="POST" novalidate>
+          {{ form.hidden_tag() }}
+          <div class="row g-3">
+            <div class="col-md-6">
+              {{ form.name.label(class="form-label fw-semibold") }}
+              {{ form.name(class="form-control") }}
+            </div>
+            <div class="col-md-6">
+              {{ form.slug.label(class="form-label fw-semibold") }}
+              {{ form.slug(class="form-control", placeholder="e.g. melanoma") }}
+            </div>
+            <div class="col-12">
+              {{ form.description.label(class="form-label fw-semibold") }}
+              {{ form.description(class="form-control", rows=3) }}
+            </div>
+            <div class="col-md-6">
+              {{ form.symptoms.label(class="form-label fw-semibold") }}
+              {{ form.symptoms(class="form-control", rows=3) }}
+            </div>
+            <div class="col-md-6">
+              {{ form.treatment.label(class="form-label fw-semibold") }}
+              {{ form.treatment(class="form-control", rows=3) }}
+            </div>
+            <div class="col-md-6">
+              {{ form.severity_info.label(class="form-label fw-semibold") }}
+              {{ form.severity_info(class="form-control", rows=2) }}
+            </div>
+            <div class="col-md-6">
+              {{ form.icon.label(class="form-label fw-semibold") }}
+              {{ form.icon(class="form-control", placeholder="e.g. bandaid") }}
+              <div class="form-text">Bootstrap Icon name (without bi-)</div>
+            </div>
+            <div class="col-12">
+              {{ form.educational_content.label(class="form-label fw-semibold") }}
+              {{ form.educational_content(class="form-control", rows=4) }}
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                {{ form.is_active(class="form-check-input") }}
+                {{ form.is_active.label(class="form-check-label fw-semibold") }}
+              </div>
+            </div>
+            <div class="col-12">
+              {{ form.submit(class="btn btn-primary") }}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

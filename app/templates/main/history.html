@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="fw-bold mb-0"><i class="bi bi-clock-history me-2"></i>Analysis History</h2>
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary">
+    <i class="bi bi-plus-circle me-2"></i>New Analysis
+  </a>
+</div>
+
+{% if analyses.items %}
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>#</th><th>Date &amp; Time</th><th>Prediction</th>
+            <th>Confidence</th><th>Severity</th><th>Consult?</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in analyses.items %}
+          <tr>
+            <td class="text-muted small">{{ a.id }}</td>
+            <td class="small">{{ a.created_at.strftime('%d %b %Y, %H:%M') }}</td>
+            <td class="fw-semibold">{{ a.predicted_class or '—' }}</td>
+            <td>
+              {% if a.confidence %}{{ (a.confidence*100)|int }}%{% else %}—{% endif %}
+            </td>
+            <td>
+              {% if a.severity %}
+                {% set sev_color = {'Low Risk':'success','Moderate Risk':'warning','High Risk':'danger'} %}
+                <span class="badge bg-{{ sev_color.get(a.severity, 'secondary') }}">{{ a.severity }}</span>
+              {% else %}—{% endif %}
+            </td>
+            <td>
+              {% if a.consult_recommended %}
+                <i class="bi bi-check-circle-fill text-danger"></i>
+              {% else %}
+                <i class="bi bi-dash-circle text-muted"></i>
+              {% endif %}
+            </td>
+            <td>
+              {% if a.report and a.report.pdf_path %}
+              <a href="#" class="btn btn-sm btn-outline-primary me-1">
+                <i class="bi bi-download"></i>
+              </a>
+              {% endif %}
+              <button class="btn btn-sm btn-outline-danger"
+                      onclick="confirmDelete({{ a.id }})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination -->
+<nav class="mt-3">
+  <ul class="pagination justify-content-center">
+    {% if analyses.has_prev %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ analyses.prev_num }}">Previous</a>
+    </li>
+    {% endif %}
+    <li class="page-item disabled">
+      <span class="page-link">Page {{ analyses.page }} of {{ analyses.pages }}</span>
+    </li>
+    {% if analyses.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ analyses.next_num }}">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% else %}
+<div class="text-center py-5 text-muted">
+  <i class="bi bi-inbox display-4 d-block mb-3"></i>
+  <h5>No analyses yet.</h5>
+  <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary mt-2">Upload your first image</a>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h2 class="fw-bold mb-3">About DermAssist-AI</h2>
+    <p class="lead text-muted mb-4">
+      An explainable AI clinical decision support system for preliminary skin condition screening.
+    </p>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="fw-semibold">What it does</h5>
+        <ul class="mb-0">
+          <li>Classifies uploaded skin images into Acne, Eczema, Psoriasis, Melanoma-like, or Normal.</li>
+          <li>Generates Grad-CAM heatmaps highlighting suspicious regions.</li>
+          <li>Produces downloadable PDF reports with findings and recommendations.</li>
+          <li>Saves history for registered users.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="fw-semibold">Technology</h5>
+        <p class="mb-0">Built with <strong>Python / Flask</strong>, <strong>PyTorch EfficientNet-B0</strong>,
+        <strong>Grad-CAM</strong>, and <strong>Bootstrap 5</strong>.
+        Training data sourced from ISIC 2019/2020 and DermNet NZ.</p>
+      </div>
+    </div>
+    <div class="alert alert-warning">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      <strong>Disclaimer:</strong> DermAssist-AI is a screening aid for educational purposes only.
+      It does not replace a certified dermatologist. Always seek professional medical advice.
+    </div>
+  </div>
+</div>
+{% endblock %}

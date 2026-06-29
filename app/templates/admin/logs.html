@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="fw-bold mb-0"><i class="bi bi-list-ul me-2"></i>System Logs</h2>
+  <div class="d-flex gap-2">
+    {% for lvl in ['', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'] %}
+    <a href="?level={{ lvl }}"
+       class="btn btn-sm {{ 'btn-primary' if level == lvl else 'btn-outline-secondary' }}">
+      {{ lvl or 'All' }}
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-sm table-hover mb-0">
+        <thead class="table-light">
+          <tr><th>Time</th><th>Level</th><th>Category</th><th>User</th><th>IP</th><th>Message</th></tr>
+        </thead>
+        <tbody>
+          {% set badge = {'INFO':'primary','WARNING':'warning','ERROR':'danger','CRITICAL':'dark'} %}
+          {% for log in logs.items %}
+          <tr>
+            <td class="small text-muted text-nowrap">{{ log.created_at.strftime('%d %b %H:%M:%S') }}</td>
+            <td><span class="badge bg-{{ badge.get(log.level,'secondary') }}">{{ log.level }}</span></td>
+            <td class="small">{{ log.category or '—' }}</td>
+            <td class="small">{{ log.user_id or '—' }}</td>
+            <td class="small text-muted">{{ log.ip_address or '—' }}</td>
+            <td class="small">{{ log.message[:100] }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="6" class="text-center text-muted py-3">No logs found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-between align-items-center">
+    <small class="text-muted">Page {{ logs.page }} of {{ logs.pages }}</small>
+    <div class="d-flex gap-2">
+      {% if logs.has_prev %}
+        <a href="?level={{ level }}&page={{ logs.prev_num }}" class="btn btn-sm btn-outline-secondary">Prev</a>
+      {% endif %}
+      {% if logs.has_next %}
+        <a href="?level={{ level }}&page={{ logs.next_num }}" class="btn btn-sm btn-outline-secondary">Next</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

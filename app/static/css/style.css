@@ -1,0 +1,88 @@
+/* DermAssist-AI — Global Styles */
+
+:root {
+  --da-primary: #0d6efd;
+  --da-radius: 0.75rem;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Card defaults */
+.card {
+  border-radius: var(--da-radius);
+}
+
+/* Navbar */
+.navbar-brand {
+  font-size: 1.25rem;
+  letter-spacing: -0.3px;
+}
+
+/* Hero gradient */
+.bg-primary.rounded-3 {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
+}
+
+/* Upload drag zone */
+#uploadZone {
+  border: 2px dashed var(--da-primary);
+  border-radius: var(--da-radius);
+  padding: 2.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#uploadZone:hover,
+#uploadZone.dragover {
+  background: rgba(13, 110, 253, 0.05);
+}
+
+/* Heatmap overlay */
+.heatmap-container {
+  position: relative;
+  display: inline-block;
+}
+.heatmap-container img {
+  max-width: 100%;
+  border-radius: var(--da-radius);
+}
+
+/* Confidence bar */
+.confidence-bar .progress {
+  height: 8px;
+  border-radius: 999px;
+}
+
+/* Severity badges */
+.severity-low    { background: #198754; }
+.severity-mod    { background: #ffc107; color: #000; }
+.severity-high   { background: #dc3545; }
+
+/* Footer */
+footer {
+  background-color: #1a1a2e !important;
+}
+
+/* Responsive image preview */
+#imagePreview {
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: var(--da-radius);
+  border: 1px solid #dee2e6;
+}
+
+/* Spinner overlay */
+#loadingOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 9999;
+  place-items: center;
+  display: none;
+}
+#loadingOverlay.active {
+  display: grid;
+}
