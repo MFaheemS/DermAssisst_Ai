@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+env/
+
+# Data (large files tracked separately via DVC or Git LFS)
+data/raw/
+data/processed/
+
+# Trained weights (store in cloud / model registry)
+models/*.pt
+models/*.pth
+models/*.h5
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/
+
+# IDE
+.vscode/
+.idea/
