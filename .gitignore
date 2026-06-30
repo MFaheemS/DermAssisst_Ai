@@ -10,6 +10,9 @@ env/
 data/raw/
 data/processed/
 
+dataset/HAM10000_images_part_1/
+dataset/HAM10000_images_part_2/
+
 # Trained weights (store in cloud / model registry)
 models/*.pt
 models/*.pth
